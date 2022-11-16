@@ -1,5 +1,11 @@
 package minesweeper;
 
-public class tile {
-    
+public class Tile {
+    boolean safe;
+    boolean flipped;
+
+    public Tile(boolean safe, boolean flipped){
+        flipped = false;
+    }
+
 }

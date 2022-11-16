@@ -1,5 +1,3 @@
-package minesweeper;
-
-public class game {
+public class Game {
     
 }
