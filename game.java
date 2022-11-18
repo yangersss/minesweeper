@@ -1,3 +1,5 @@
+import javax.swing.plaf.basic.BasicTableHeaderUI;
+
 public class Game {
     
 
@@ -19,10 +21,19 @@ public class Game {
     }
 
     public String colour(Tile t){
-
-
-        if (t.surroundingMines == 0){
-            return "\u001B[0m";
+        switch (t.surroundingMines){
+            case 1:
+                return "\u001B[34m";
+            case 2:
+                return "\u001B[32m";
+            case 3:
+                return "\u001B[31m";
+            case 4:
+                return "\u001B[35m";
+            case 5:
+                return "\u001B[33m";
+            default: 
+                return "\u001B[0m";
         }
     }
 }
