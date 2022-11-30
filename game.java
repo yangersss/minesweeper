@@ -74,7 +74,7 @@ public class Game {
 
         }
         else{
-            System.out.println("Sorry, that's not a valid input! Type F ");
+            System.out.println("Sorry, that's not a valid input!\nType F and then the coordinates to flag\nType the coordinates to flip a tile\nType debug to reveal the grid");
         }
     }
 
