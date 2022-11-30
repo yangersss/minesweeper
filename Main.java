@@ -1,7 +1,8 @@
 public class Main {
     public static void main (String[] args) {
-        Game test = new Game();
         Grid test1 = new Grid(10, 10);
-        test.printGrid(test1);
+        Game test = new Game(test1);
+        test1.generate(0.2);
+        test.debugGrid();
     }
 }
