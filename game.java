@@ -68,14 +68,25 @@ public class Game {
 
     public void input(){ //recursion
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Make your move:");
-        String input = scanner.nextLine();
-        if (){
-
-        }
-        else{
-            System.out.println("Sorry, that's not a valid input!\nType F and then the coordinates to flag\nType the coordinates to flip a tile\nType debug to reveal the grid");
+        
+        boolean valid = false;
+        while (!valid){
+            System.out.print("Make your move:");
+            String input = scanner.nextLine();
+            
+            if (!input.equals("")){
+                if (input.substring(0,1).toLowerCase().equals("f")){
+                    //TODO flag
+                    System.out.println("alright, puttin a flag on!");
+                    valid = true;
+                }
+                else{
+                    System.out.println("Sorry, that's not a valid input!\nType F and then the coordinates to flag\nType the coordinates to flip a tile\nType debug to reveal the grid");
+                }
+            }
+            else{
+                System.out.println("Sorry, that's not a valid input!\nType F and then the coordinates to flag\nType the coordinates to flip a tile\nType debug to reveal the grid");
+            }
         }
     }
-
 }

@@ -4,5 +4,6 @@ public class Main {
         Game test = new Game(test1);
         test1.generate(0.2);
         test.debugGrid();
+        test.input();
     }
 }
