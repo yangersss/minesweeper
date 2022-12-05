@@ -10,3 +10,8 @@ tile: flipped/unflipped, mine/safe
 TODO:
 add colors all the way up to 8
 print "safe tiles left" every turn
+
+// f 0 0
+// 0 0
+// debug
+if it's not one of these things, make user input again

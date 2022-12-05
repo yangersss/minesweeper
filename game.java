@@ -37,7 +37,7 @@ public class Game {
             System.out.print(j + "  ");
             for (int k = 0; k < grid.getColumns(); k++){
                 if (grid.getTile(j, k).flagged){
-                    //TODO
+                    System.out.print("\u001B[0m\u001B[43m[F]");
                 }
                 else if (grid.getTile(j, k).flipped){
                     System.out.print("\u001B[0m" + grid.getTile(j, k).color() + "[" + grid.getTile(j, k).surroundingMines + "]");
@@ -68,32 +68,39 @@ public class Game {
 
     public void input(){ //recursion
         Scanner scanner = new Scanner(System.in);
-        
+
         boolean valid = false;
+
+        String badInput = "Sorry, that's not a valid input!\nType F and then the coordinates (separated by spaces) to flag\nType the coordinates (separated by spaces) to flip a tile\nType debug to reveal the grid";
+
         while (!valid){
             System.out.print("Make your move:");
             String input = scanner.nextLine();
             
-            if (!input.equals("")){
-                char[] aInput = input.toCharArray();
-                if (!Character.toString(aInput[0]).toLowerCase().equals("f") ||
-                    !input.toLowerCase().equals("debug")
-                    
-                    ){
-                    System.out.println("Sorry, that's not a valid input!\nType F and then the coordinates to flag\nType the coordinates to flip a tile\nType debug to reveal the grid");
-                }
-
-                if (input.substring(0,1).toLowerCase().equals("f")){
-                    //TODO flag
-                    System.out.println("Put a flag ");
-                    valid = true;
-                }
-                else{
-                    System.out.println("Sorry, that's not a valid input!\nType F and then the coordinates to flag\nType the coordinates to flip a tile\nType debug to reveal the grid");
-                }
+            if (input.equals("debug")){
+                debugGrid();
             }
-            else{
-                System.out.println("Sorry, that's not a valid input!\nType F and then the coordinates to flag\nType the coordinates to flip a tile\nType debug to reveal the grid");
+
+            //TODO else: try, catch, finally
+            else{ // used to be: else if the string isn't empty...
+                char[] aInput = input.toCharArray();
+                try{
+                    if (Character.toString(aInput[0]).toLowerCase() == "f"){
+                        // grid.flag(aInput[2], aInput[4]);
+                        grid.flag(Integer.parseInt(Character.toString(aInput[2])), Integer.parseInt(Character.toString(aInput[4])));
+                        valid = true;
+                    }
+                    else{
+                        // grid.flip(aInput[0], aInput[2]);
+                        grid.flip(Integer.parseInt(Character.toString(aInput[0])), Integer.parseInt(Character.toString(aInput[2])));
+                        valid = true;
+                    }
+                    printGrid();
+
+                }
+                catch (Exception e){
+                    System.out.println(badInput);
+                }
             }
         }
     }

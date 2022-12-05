@@ -62,5 +62,13 @@ public class Grid {
     public Tile getTile(int x, int y){
         return board[x][y];
     }
+
+    public void flip(int x, int y){
+        board[x][y].flipped = true;
+    }
+
+    public void flag(int x, int y){
+        board[x][y].flagged = true;
+    }
     //generate the tiles in the grid
 }
