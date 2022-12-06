@@ -50,58 +50,84 @@ public class Game {
         }
         
         //print safe tiles left
-        int d = grid.getRows() * grid.getColumns(); //counter
-        for (int l = 0; l < grid.getRows(); l++){
-            for (int k = 0; k < grid.getColumns(); k++){
-                if (grid.getTile(l, k).flipped){
-                    d--;
-                }
-            }
-        }
-        System.out.println("Safe tiles left: " + d);
+        System.out.println("Safe tiles left: " + grid.safeTiles());
     }
 
     public void play(){
-        //take inputs flip, flag, debug, or throws e
-        //check if win, lose
-    }
+        /*PSEUDOCODE:
+        Welcome statement
+        Instructions
+        
+        Loop:
+        Checkwin
+        Grid
+        Input
+        Checklose
+        Printgrid
+        */
 
-    public void input(){ //recursion
-        Scanner scanner = new Scanner(System.in);
+        System.out.println("welcome"); //TODO welcome statement
+        System.out.println("instructions"); //TODO instructions
 
-        boolean valid = false;
 
-        String badInput = "Sorry, that's not a valid input!\nType F and then the coordinates (separated by spaces) to flag\nType the coordinates (separated by spaces) to flip a tile\nType debug to reveal the grid";
-
-        while (!valid){
-            System.out.print("Make your move:");
-            String input = scanner.nextLine();
-            
-            if (input.equals("debug")){
-                debugGrid();
+        boolean gameOn = true;
+        while (gameOn){
+            if (grid.checkWin()){
+                System.out.println("u won"); //TODO win statement
             }
+            printGrid();
+            
+            String badInput = "Sorry, that's not a valid input!\nType F and then the coordinates (separated by spaces) to flag\nType the coordinates (separated by spaces) to flip a tile\nType debug to reveal the grid";
+            
+            boolean valid = false;
+            while (!valid){
+                String input = input();
+                if (input.toLowerCase().equals("debug")){ //TODO: debug input is buggy
+                    debugGrid();
+                    valid = true;
+                }
 
-            //TODO else: try, catch, finally
-            else{ // used to be: else if the string isn't empty...
                 char[] aInput = input.toCharArray();
                 try{
-                    if (Character.toString(aInput[0]).toLowerCase() == "f"){
-                        // grid.flag(aInput[2], aInput[4]);
-                        grid.flag(Integer.parseInt(Character.toString(aInput[2])), Integer.parseInt(Character.toString(aInput[4])));
+                    if (Character.toString(aInput[0]).toLowerCase().equals("f")){
+                        // flag
+                        int input1 = Integer.parseInt(Character.toString(aInput[2]));
+                        int input2 = Integer.parseInt(Character.toString(aInput[4]));
+
+                        grid.flag(input1, input2);
                         valid = true;
                     }
                     else{
-                        // grid.flip(aInput[0], aInput[2]);
-                        grid.flip(Integer.parseInt(Character.toString(aInput[0])), Integer.parseInt(Character.toString(aInput[2])));
-                        valid = true;
-                    }
-                    printGrid();
+                        // flip
+                        int input1 = Integer.parseInt(Character.toString(aInput[0]));
+                        int input2 = Integer.parseInt(Character.toString(aInput[2]));
+                        if (grid.checkLose(input1, input2)){
+                            System.out.println("\u001B[0m\u001B[31m\u001B[1mYOU LOSE!!!\n\u001B[0m\u001B[42mHere's what the grid looked like:\u001B[0m");
+                            debugGrid();
+                            gameOn = false;
+                        }
 
+                        if (grid.checkFlagged(input1, input2)){
+                            System.out.println("\u001B[0mYou can't flip a flag!");
+                        }
+                        else{
+                            grid.flip(input1, input2);
+                            valid = true;
+                        }
+                        
+                    }
                 }
                 catch (Exception e){
                     System.out.println(badInput);
                 }
             }
         }
+    }
+
+    public String input(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Make your move:");
+        String input = scanner.nextLine();
+        return input;
     }
 }

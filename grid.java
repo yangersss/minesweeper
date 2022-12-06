@@ -1,4 +1,4 @@
-public class Grid {
+public class Grid{
     Tile[][] board;
 
     public Grid(int x, int y){
@@ -51,6 +51,18 @@ public class Grid {
         }
     }
 
+    public int safeTiles(){
+        int d = board.length * board[0].length; //counter
+        for (int l = 0; l < board.length; l++){
+            for (int k = 0; k < board[0].length; k++){
+                if (board[l][k].flipped){
+                    d--;
+                }
+            }
+        }
+        return d;
+    }
+
     public int getColumns(){
         return board[0].length;
     }
@@ -64,10 +76,30 @@ public class Grid {
     }
 
     public void flip(int x, int y){
-        board[x][y].flipped = true;
+            board[x][y].flipped = true;
+        
+        //TODO check if surrounding tiles are 0
+    }
+
+    public boolean checkLose(int x, int y){
+        return (!board[x][y].safe);
+    }
+
+    public boolean checkWin(){
+        if (safeTiles() == 0){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkFlagged(int x, int y){
+        return (board[x][y].flagged);
     }
 
     public void flag(int x, int y){
+        if (checkFlagged(x, y)){
+            System.out.println("\u001B[0mOkay, but that tile is already flagged...");
+        }
         board[x][y].flagged = true;
     }
     //generate the tiles in the grid
