@@ -99,6 +99,7 @@ public class Game {
                     }
                     else{
                         // flip
+                        // TODO unflip
                         int input1 = Integer.parseInt(Character.toString(aInput[0]));
                         int input2 = Integer.parseInt(Character.toString(aInput[2]));
                         if (grid.checkLose(input1, input2)){

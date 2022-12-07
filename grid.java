@@ -77,7 +77,29 @@ public class Grid{
 
     public void flip(int x, int y){
             board[x][y].flipped = true;
-        
+
+            // TODO add 1 if statement
+            if (x-1 != -1 && y != -1 && (x-1) < board[0].length && (y) < board.length){ // -1, 0
+                if (board[x-1][y].safe && !board[x-1][y].flipped){ 
+                    flip(x-1,y);
+                }
+            }
+            if (x+1 != -1 && y != -1 && (x+1) < board[0].length && (y) < board.length){ // 1, 0
+                if (board[x+1][y].safe && !board[x+1][y].flipped){
+                    flip(x+1,y);
+                }
+            }
+            if (x != -1 && y-1 != -1 && (x) < board[0].length && (y-1) < board.length){ // 0, -1
+                if (board[x][y-1].safe && !board[x][y-1].flipped){
+                    flip(x,y-1);
+                }
+            }
+            if (x != -1 && y+1 != -1 && (x) < board[0].length && (y+1) < board.length){ // 0, 1
+                if (board[x][y+1].safe && !board[x][y+1].flipped){
+                    flip(x,y+1);
+                }
+            }
+            
         //TODO check if surrounding tiles are 0
     }
 
