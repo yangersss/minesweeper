@@ -1,10 +1,9 @@
-import java.util.*;
+import java.util.Scanner;
 
 public class Game {
     Grid grid;
 
-    public Game(Grid g){
-        grid = g;
+    public Game(){
     }
 
     public void debugGrid() { // DEBUG: prings the grid showing mines and numbers
@@ -66,14 +65,25 @@ public class Game {
         Printgrid
         */
 
-        System.out.println("welcome"); //TODO welcome statement
-        System.out.println("instructions"); //TODO instructions
+        // you want to play? let's play
 
+        //TODO input size and difficulty
+
+        grid = new Grid(10, 10);
+        grid.generate(0.01);
 
         boolean gameOn = true;
         while (gameOn){
             if (grid.checkWin()){
-                System.out.println("u won"); //TODO win statement
+                System.out.println("\u001B[32mYOU WON!!! PogU peepoHappy Here's what the grid looked like:\u001B[0m");
+                debugGrid();
+                gameOn = false;
+                Scanner scanner = new Scanner(System.in);
+                System.out.print("Would you like to play again? Y/N: ");
+                String playAgain = scanner.nextLine();
+                if (playAgain.substring(0, 1).toLowerCase().equals("y")){
+                    play();
+                }
             }
             printGrid();
             
@@ -82,7 +92,8 @@ public class Game {
             boolean valid = false;
             while (!valid){
                 String input = input();
-                if (input.toLowerCase().equals("debug")){ //TODO: debug input is buggy
+                if (input.toLowerCase().equals("debug")){
+                    System.out.println("Entering debug mode: (Caution: unironically, debug mode is buggy)");
                     debugGrid();
                     valid = true;
                 }
@@ -99,13 +110,18 @@ public class Game {
                     }
                     else{
                         // flip
-                        // TODO unflip
                         int input1 = Integer.parseInt(Character.toString(aInput[0]));
                         int input2 = Integer.parseInt(Character.toString(aInput[2]));
                         if (grid.checkLose(input1, input2)){
                             System.out.println("\u001B[0m\u001B[31m\u001B[1mYOU LOSE!!!\n\u001B[0m\u001B[42mHere's what the grid looked like:\u001B[0m");
                             debugGrid();
                             gameOn = false;
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.print("Would you like to play again? Y/N: ");
+                            String playAgain = scanner.nextLine();
+                            if (playAgain.substring(0, 1).toLowerCase().equals("y")){
+                                play();
+                            }
                         }
 
                         if (grid.checkFlagged(input1, input2)){
