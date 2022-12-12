@@ -67,10 +67,26 @@ public class Game {
 
         // you want to play? let's play
 
-        //TODO input size and difficulty
-
-        grid = new Grid(10, 10);
-        grid.generate(0.01);
+        //TODO make everything fun and colorful
+        
+        boolean valid0 = false;
+        while (!valid0){
+            Scanner scanner0 = new Scanner(System.in);
+            System.out.print("What is the grid width? ");
+            String inputX = scanner0.nextLine();
+            System.out.print("What is the grid height? ");
+            String inputY = scanner0.nextLine();
+            System.out.print("What is the difficulty? (What proportion of the tiles are mines?) ");
+            String inputDifficulty = scanner0.nextLine();
+            try{
+                grid = new Grid(Integer.parseInt(inputX), Integer.parseInt(inputY));
+                grid.generate(Double.parseDouble(inputDifficulty));
+                valid0 = true;
+            }
+            catch (Exception e){
+                System.out.println("One of those wasn't a valid input! Please make sure you are entering integers for the width and height, and a double (such as 0.15 or 0.32) for the difficulty(.15 and .32 will not work).");
+            }
+        }
 
         boolean gameOn = true;
         while (gameOn){
@@ -83,6 +99,10 @@ public class Game {
                 String playAgain = scanner.nextLine();
                 if (playAgain.substring(0, 1).toLowerCase().equals("y")){
                     play();
+                }
+                else{
+                    System.out.println("Okay, bye!");
+                    System.exit(0);
                 }
             }
             printGrid();
@@ -121,6 +141,10 @@ public class Game {
                             String playAgain = scanner.nextLine();
                             if (playAgain.substring(0, 1).toLowerCase().equals("y")){
                                 play();
+                            }
+                            else{
+                                System.out.println("Okay, bye!");
+                                System.exit(0);
                             }
                         }
 
