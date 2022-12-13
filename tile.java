@@ -4,13 +4,13 @@ public class Tile {
     boolean flagged;
     int surroundingMines;
 
-    public Tile(){
+    public Tile(){ //by default a tile is unflipped, unflagged, and safe
         flipped = false;
         flagged = false;
         safe = true;
     }
     
-    public String color(){
+    public String color(){ // make it nice and color coded. It takes in the number of surrounding mines and outputs the unicode character for the color
         switch (surroundingMines){
             case 0:
                 return "\u001B[30m"; //black

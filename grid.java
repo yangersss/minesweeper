@@ -6,20 +6,20 @@ public class Grid{
     }
     
     public void generate(double difficulty){ //randomly set each tile based on difficulty AND set each tile's number of surroundingMines
-        for (int l = 0; l < board.length; l++){
+        for (int l = 0; l < board.length; l++){ // for each tile generate the tile
             for (int m = 0; m < board[l].length; m++){
                 board[l][m] = new Tile();
             }
         }    
 
-        for (int i = 0; i < board.length; i++){
+        for (int i = 0; i < board.length; i++){ // now for each tile randomly assign it to be safe or a mine
             for (int j = 0; j < board[i].length; j++){
                 if (difficulty > Math.random()){
                     board[i][j].safe = false;
                 }
             }
         }
-        for (int k = 0; k < board.length; k++){
+        for (int k = 0; k < board.length; k++){ // now check over all these conditions and find the number of surroundingMines for each tile
             for (int l = 0; l < board.length; l++){
                 int c = 0;
                 if ((k-1) != -1 && l-1 != -1 && (k-1) < board[0].length && (l-1) < board.length && !(board[k-1][l-1].safe)){ //upper left, -1 -1
@@ -51,7 +51,7 @@ public class Grid{
         }
     }
 
-    public int safeTiles(){
+    public int safeTiles(){ //returns the nubmer of safe tiles. A safe tile is a tile that is not a mine or not flipped
         int d = board.length * board[0].length; //counter
         for (int l = 0; l < board.length; l++){
             for (int k = 0; k < board[0].length; k++){
@@ -79,11 +79,11 @@ public class Grid{
         return board;
     }
 
-    public void flip(int x, int y){
+    public void flip(int x, int y){ // flip a tile, and also check the surrounding four tiles and recursively call flip() if any of those tiles have 0 surrounding mines
             board[x][y].flipped = true;
 
-            if (board[x][y].surroundingMines == 0){
-                if (x-1 != -1 && y != -1 && (x-1) < board[0].length && (y) < board.length){ // -1, 0
+            if (board[x][y].surroundingMines == 0){ //so for each of these, make sure we're not going out of bounds, then check if it's safe and make sure it's safe and make sure it's not already flipped
+                if (x-1 != -1 && y != -1 && (x-1) < board[0].length && (y) < board.length){ // -1, 0 
                     if (board[x-1][y].safe && !board[x-1][y].flipped){ 
                         flip(x-1,y);
                     }
@@ -123,7 +123,7 @@ public class Grid{
         return (board[x][y].flagged);
     }
 
-    public void flag(int x, int y){
+    public void flag(int x, int y){ //flag a tile. if it's already flagged, then unflag it
         if (checkFlagged(x, y)){
             System.out.println("\u001B[0mOkay, unflagging that tile...");
             board[x][y].flagged = false;
@@ -132,5 +132,4 @@ public class Grid{
             board[x][y].flagged = true;
         }
     }
-    //generate the tiles in the grid
 }

@@ -15,3 +15,13 @@ print "safe tiles left" every turn
 // 0 0
 // debug
 if it's not one of these things, make user input again
+
+Color coding:
+reset: \u001B[0m
+
+any questions: italic cyan \u001B[0m\u001B[3m\u001B[36m
+parentheicals: underline yellow \u001B[0m\u001B[4m\u001B[33m
+game info: bold green \u001B[0m\u001B[1m\u001B[32m
+errors: bold red \u001B[0m\u001B[1m\u001B[31m
+
+Debug: \u001B[0m\u001B[7m\u001B[31m\u001B[40m
